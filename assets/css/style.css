@@ -1,0 +1,27 @@
+/* @font-face {
+    font-family: "revue";
+    src: url("../font/revue.ttf");
+}
+
+#top-logo {
+    font-family: "revue";
+} */
+
+body {
+    background-color: black;
+}
+
+#tommy-face {
+    width: 50%;
+    height: 100%;
+}
+
+#room-logo {
+    width: 50%;
+    height: 55%;
+}
+
+#main-content {
+    background-color: #b6c5c8   ;
+    opacity: 90%;
+}
