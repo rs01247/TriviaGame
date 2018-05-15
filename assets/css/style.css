@@ -9,6 +9,15 @@
 
 body {
     background-color: black;
+    /* border: 1px solid #b6c5c8; */
+}
+
+section {
+    font-family: 'Roboto Mono', monospace;
+}
+
+#start-button {
+    color: white;
 }
 
 #tommy-face {
@@ -24,4 +33,5 @@ body {
 #main-content {
     background-color: #b6c5c8   ;
     opacity: 90%;
+    height: 50vh;
 }
