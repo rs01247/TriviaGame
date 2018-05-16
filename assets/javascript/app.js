@@ -8,6 +8,7 @@ window.onload = function () {
     var wrongAnswers;
     var timeOut;
     var number = 1;
+    var gameFlow = [];  
 
     var questions = [
 
@@ -122,12 +123,11 @@ window.onload = function () {
         },
     ];
 
-    var randomQuest = questions[Math.floor(Math.random() * questions.length)];
-    console.log(randomQuest);
-
     function init() {
-        $("#main-content").hide();
-        $("#start-button").show();
+        tommyLaugh.play();
+        $("#start-button").hide();
+        $("#main-content").show();
+        $("#number").text(number);
     }
 
     function newQuestion() {
@@ -138,6 +138,15 @@ window.onload = function () {
         $("#answer-4").text(questions[i].answer4)
         number++;
     };
+
+    // function nextQuestion() {
+    //     $("#what-question").text(questions[i+1].ask)
+    //     $("#answer-1").text(questions[i+1].answer1)
+    //     $("#answer-2").text(questions[i+1].answer2)
+    //     $("#answer-3").text(questions[i+1].answer3)
+    //     $("#answer-4").text(questions[i+1].answer4)
+    //     number++;
+    // }
 
     function correct() {
         $("#what-question").text("Correct!");
@@ -161,32 +170,41 @@ window.onload = function () {
 
     //START GAME
     $("#start-button").on("click", function () {
-        tommyLaugh.play();
-
-        $("#start-button").hide();
-        $("#main-content").show();
-        $("#number").text(number);
+        init();
 
         for (i = 0; i < questions.length; i++) {
 
-            if (!startGame) {
-                console.log(startGame);
-                newQuestion();
+            gameFlow = questions[Math.floor(Math.random() * questions.length)];
+            console.log(gameFlow);
 
+            if (!startGame) {
+
+                newQuestion();
+                $(".your-choices").on("click", function(){
+                    userAnswer = $(this).text();
+                    console.log(userAnswer);
+                    console.log(questions[i]);
+                    // if (userAnswer === questions[i].correctAnswer) {
+                    //     correct();
+                    // }
+                    // else {
+                    //     wrong();
+                    // }
+
+                })
 
                 startGame = true;
-                console.log(startGame);
+
             }
 
             else {
-
+                // nextquestion();
             }
         }
 
     })
 
 }
-
 
     // var mySound = soundManager.createSound({
     //     url: '/path/to/an.mp3'
