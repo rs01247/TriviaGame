@@ -36,7 +36,11 @@ section {
 }
 
 #main-content {
-    background-color: #b6c5c8   ;
+    background-color: #b6c5c8;
     opacity: 90%;
     height: auto;
+}
+
+.choosey:hover {
+    background-color: slategray;
 }
