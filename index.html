@@ -17,62 +17,89 @@
 </head>
 
 <body>
-
-    <header class="container-fluid p-0">
-        <nav class="navbar justify-content-center p-0" id="top-logo">
-            <div class="row">
-                <div class="col-3 d-flex justify-content-start ml-0">
-                    <img id="tommy-face" src="assets/images/tommyleft.PNG" alt="tommyface">
+    <div class="container justify-content-center p-0" id="safe-space">
+        <header class="container-fluid p-0">
+            <nav class="navbar justify-content-center p-0" id="top-logo">
+                <div class="row">
+                    <div class="col-3 d-flex justify-content-start ml-0">
+                        <img id="tommy-face" src="assets/images/tommyleft.PNG" alt="tommyface">
+                    </div>
+                    <div class="col-6 text-center mt-4">
+                        <img id="room-logo" src="assets/images/theroomlogo.PNG" alt="tommyface">
+                        <h3 class="text-center text-light">Trivia Game</h3>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end mr-0">
+                        <img id="tommy-face" src="assets/images/tommyright.PNG" alt="tommyface">
+                    </div>
                 </div>
-                <div class="col-6 text-center mt-4">
-                    <img id="room-logo" src="assets/images/theroomlogo.PNG" alt="tommyface">
-                    <h3 class="text-center text-light">Trivia Game</h3>
-                </div>
-                <div class="col-3 d-flex justify-content-end mr-0">
-                    <img id="tommy-face" src="assets/images/tommyright.PNG" alt="tommyface">
-                </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
 
-    <section class="container">
-        <div class="row justify-content-center">
-            <div class="col-10">
+        <section class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
 
-                <!-- START WITH IMAGE, CLICK TO BEGIN GAME -->
-                <div class="text-center" id="start-button">
-                    <img class="rounded" src="./assets/images/tommycry.gif" alt="Tommy Crying">
-                    <h2>Click on Johnny to Begin!</h2>
-                </div>
+                    <!-- START WITH IMAGE, CLICK TO BEGIN GAME -->
+                    <div class="text-center mb-5" id="start-button">
+                        <img class="rounded" src="./assets/images/tommycry.gif" alt="Tommy Crying">
+                        <h2>Click on Johnny to Begin!</h2>
+                    </div>
 
-                <!-- QUESTION BOX HIDDEN AT START OF GAME, BUTTON CLICK DISPLAYS THIS CONTENT -->
-                <div class="jumbotron" id="main-content">
-                    <h1 class="display-4" id="number-question">Question 1</h1>
-                    <p class="lead" id="what-question">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-6 mb-3" id="your-choices">
-                                <li class="list-group-item" id="answer-1">Cras justo odio</li>
+                    <!-- QUESTION BOX HIDDEN AT START OF GAME, BUTTON CLICK DISPLAYS THIS CONTENT -->
+                    <div class="jumbotron text-center" id="main-content">
+                        <!-- <h1 class="display-4" id="number-question">Question 1</h1> -->
+                        <p class="lead" id="what-question">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <div class="container mt-2">
+                            <div class="row">
+                                <div class="col-md-6 mb-3" id="your-choices">
+                                    <li class="list-group-item" id="answer-1">Cras justo odio</li>
+                                </div>
+                                <div class="col-md-6 mb-3" id="your-choices">
+                                    <li class="list-group-item" id="answer-2">Cras justo odio</li>
+                                </div>
                             </div>
-                            <div class="col-6 mb-3" id="your-choices">
-                                <li class="list-group-item" id="answer-2">Cras justo odio</li>
+                            <div class="row">
+                                <div class="col-md-6 mb-3" id="your-choices">
+                                    <li class="list-group-item" id="answer-3">Cras justo odio</li>
+                                </div>
+                                <div class="col-md-6 mb-3" id="your-choices">
+                                    <li class="list-group-item" id="answer-4">Cras justo odio</li>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6 mb-3" id="your-choices">
-                                <li class="list-group-item" id="answer-3">Cras justo odio</li>
-                            </div>
-                            <div class="col-6 mb-3" id="your-choices">
-                                <li class="list-group-item" id="answer-4">Cras justo odio</li>
+                        <h2 class="display-5 mt-2">Time Remaining: </h2>
+                    </div>
+
+                    <!-- CORRECT ANSWER DIV
+                    <div class="jumbotron" id="correct-answer">
+                        <h1 class="display-4" id="number-question">Question 1</h1>
+                        <p class="lead" id="what-question">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <div class="container">
+                            <div class="row">
+                                <div id="your-choices">
+                                    <img class="rounded" src="">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
 
+                    WRONG ANSWER DIV
+                    <div class="jumbotron" id="wrong-answer">
+                        <h1 class="display-4" id="number-question">WRONG ANSWER</h1>
+                        <p class="lead" id="what-question">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <div class="container">
+                            <div class="row">
+                                <div id="your-choices">
+                                    <img class="rounded" src="">
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
 
 </html>

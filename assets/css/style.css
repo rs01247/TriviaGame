@@ -9,7 +9,12 @@
 
 body {
     background-color: black;
-    /* border: 1px solid #b6c5c8; */
+}
+
+#safe-space {
+    border: 1px solid #b6c5c8;
+    margin-top: 5vh;
+    background-color: black;
 }
 
 section {
@@ -33,5 +38,5 @@ section {
 #main-content {
     background-color: #b6c5c8   ;
     opacity: 90%;
-    height: 50vh;
+    height: auto;
 }
