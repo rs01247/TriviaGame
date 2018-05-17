@@ -1,14 +1,14 @@
 window.onload = function () {
 
-    //DECLARING VARIABLES
+    // DECLARING VARIABLES
     var tommyLaugh = new Audio("./assets/audio/tommy-laugh.mp3");
     var startGame = false;
-    var userAnswer;
-    var correctAnswers;
-    var wrongAnswers;
-    var timeOut;
+    var userChoice;
+    var rightChoice;
+    var correctLog = 0;
+    var incorrectLog = 0;
+    var timeoutLog;
     var number = 1;
-    var gameFlow = [];  
 
     var questions = [
 
@@ -139,57 +139,102 @@ window.onload = function () {
         number++;
     };
 
-    // function nextQuestion() {
-    //     $("#what-question").text(questions[i+1].ask)
-    //     $("#answer-1").text(questions[i+1].answer1)
-    //     $("#answer-2").text(questions[i+1].answer2)
-    //     $("#answer-3").text(questions[i+1].answer3)
-    //     $("#answer-4").text(questions[i+1].answer4)
-    //     number++;
-    // }
+    function nextQuestion() {
+        $("#what-question").text(questions[i+1].ask)
+        $("#answer-1").text(questions[i+1].answer1)
+        $("#answer-2").text(questions[i+1].answer2)
+        $("#answer-3").text(questions[i+1].answer3)
+        $("#answer-4").text(questions[i+1].answer4)
+        number++;
+    }
 
     function correct() {
-        $("#what-question").text("Correct!");
-        $("#response-box").html('<img src=questions[i].imageUrl>')
+        $(".title").text("Correct!");
+        $("#what-question").text("Ha ha ha. Good Thinking");
+        $("#response-box").html('<img class="rounded img-fluid" src=' + '"' + correctImg + '"' + '>');
+        correctLog++;
     };
 
     function wrong() {
-        $("#what-question").text("Incorrect!");
-        $("#response-box").html('<img src="./assets/images/tearingme.gif">')
+        $(".title").text("Incorrect!");
+        $("#what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
+        $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
+        incorrectLog++;
     };
 
     function outtaTime() {
-        $("#what-question").text("Out of Time!");
-        $("#response-box").html('<img src="./assets/images/betray.gif">')
+        $(".title").text("Out of Time!");
+        $("#what-question").text("The answer is " + rightChoice)
+        $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
     };
 
+    function shuffle(questions) {
+        var gameFlow = questions.length, tempVal, shuffleVal;
+
+        // While there remain elements to shuffle...
+        while (0 !== gameFlow) {
+
+            // Pick a remaining element...
+            shuffleVal = Math.floor(Math.random() * gameFlow);
+            gameFlow -= 1;
+
+            // And swap it with the current element.
+            tempVal = questions[gameFlow];
+            questions[gameFlow] = questions[shuffleVal];
+            questions[shuffleVal] = tempVal;
+        }
+
+        return questions;
+    }
+
+    // gameFlow = questions[Math.floor(Math.random() * questions.length)];
+    // console.log(gameFlow);  
+
+    // function shuffle(questions) {
+    //     var gameFlow, gameShuffle, i;
+    //     for (i = questions.length - 1; i > 0; i--) {
+    //         gameFlow = Math.floor(Math.random() * (i + 1));
+    //         gameShuffle = questions[i];
+    //         a[i] = a[j];
+    //         a[j] = x;
+    //     }
+    //     return a;
+    // }
 
     // INITIALIZATION
     $("#main-content").hide();
 
 
-    //START GAME
+    // START GAME
     $("#start-button").on("click", function () {
         init();
+        shuffle(questions);
+        console.log(questions);
+
+        /* 
+        INCREMENT TO NEXT ARRAY AFTER QUESTION FINISHES
+        SET INTERVAL
+        */
 
         for (i = 0; i < questions.length; i++) {
 
-            gameFlow = questions[Math.floor(Math.random() * questions.length)];
-            console.log(gameFlow);
-
             if (!startGame) {
-
                 newQuestion();
-                $(".your-choices").on("click", function(){
-                    userAnswer = $(this).text();
-                    console.log(userAnswer);
-                    console.log(questions[i]);
-                    // if (userAnswer === questions[i].correctAnswer) {
-                    //     correct();
-                    // }
-                    // else {
-                    //     wrong();
-                    // }
+                rightChoice = (questions[i].correctAnswer);
+                var correctImg = (questions[i].imageUrl);
+
+                $(".your-choices").on("click", function () {
+                    userChoice = $(this).text();
+                    console.log(rightChoice);
+                    console.log(userChoice);
+
+                    if (userChoice == rightChoice) {
+                        correct();
+                        console.log(correctImg);
+                    }
+                    else {
+                        wrong();
+                    }
 
                 })
 
@@ -198,7 +243,8 @@ window.onload = function () {
             }
 
             else {
-                // nextquestion();
+                // setnextQuestion();
+                startGame = false;
             }
         }
 

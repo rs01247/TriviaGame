@@ -1,12 +1,3 @@
-/* @font-face {
-    font-family: "revue";
-    src: url("../font/revue.ttf");
-}
-
-#top-logo {
-    font-family: "revue";
-} */
-
 body {
     background-color: black;
 }
@@ -41,6 +32,6 @@ section {
     height: auto;
 }
 
-.choosey:hover {
+.your-choices:hover {
     background-color: slategray;
 }
