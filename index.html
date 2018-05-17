@@ -10,6 +10,7 @@
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- <script src="soundmanager2.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
@@ -17,7 +18,9 @@
 </head>
 
 <body>
+
     <div class="container justify-content-center p-0" id="safe-space">
+
         <header class="container-fluid p-0">
             <nav class="navbar justify-content-center p-0" id="top-logo">
                 <div class="row">
@@ -46,8 +49,8 @@
                     </div>
 
                     <!-- QUESTION BOX HIDDEN AT START OF GAME, BUTTON CLICK DISPLAYS THIS CONTENT -->
-                    <div class="jumbotron text-center" id="main-content">
-                        <h1 class="title display-4">Question <span id="number"></span></h1>
+                    <div class="jumbotron text-center p-2" id="main-content">
+                        <h3 class="title">Question <span id="number"></span></h3>
                         <p class="lead" id="what-question">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
                         <div class="container mt-2" id="response-box">
                             <div class="row">
@@ -67,13 +70,15 @@
                                 </div>
                             </div>
                         </div>
-                        <h2 class="display-5 mt-2" id="timer">Time Remaining: </h2>
+                        <h2 class="display-5 mt-2" id="timer"></h2>
                     </div>
 
                 </div>
             </div>
         </section>
+
     </div>
+
 </body>
 
 </html>

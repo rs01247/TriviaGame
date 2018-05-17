@@ -2,9 +2,13 @@ body {
     background-color: black;
 }
 
+.title {
+    font-family: 'Roboto', sans-serif;
+}
+
 #safe-space {
     border: 1px solid #b6c5c8;
-    margin-top: 5vh;
+    margin-top: 1vh;
     background-color: black;
 }
 

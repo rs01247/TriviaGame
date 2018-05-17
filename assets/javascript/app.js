@@ -7,7 +7,8 @@ window.onload = function () {
     var rightChoice;
     var correctLog = 0;
     var incorrectLog = 0;
-    var timeoutLog;
+    var gameTimer = 10;
+    var timeout;
     var number = 1;
 
     var questions = [
@@ -137,22 +138,34 @@ window.onload = function () {
         $("#answer-3").text(questions[i].answer3)
         $("#answer-4").text(questions[i].answer4)
         number++;
+        timeout = setInterval(countdown, 1000);
     };
 
-    function nextQuestion() {
-        $("#what-question").text(questions[i+1].ask)
-        $("#answer-1").text(questions[i+1].answer1)
-        $("#answer-2").text(questions[i+1].answer2)
-        $("#answer-3").text(questions[i+1].answer3)
-        $("#answer-4").text(questions[i+1].answer4)
-        number++;
-    }
+    function countdown() {
+
+        gameTimer--;
+        $("#timer").text("Time Remaining: " + gameTimer);
+        if (gameTimer === 0) {
+            outtaTime();
+        }
+        
+    }  
+
+    // function nextQuestion() {
+    //     $("#what-question").text(questions[i+1].ask)
+    //     $("#answer-1").text(questions[i+1].answer1)
+    //     $("#answer-2").text(questions[i+1].answer2)
+    //     $("#answer-3").text(questions[i+1].answer3)
+    //     $("#answer-4").text(questions[i+1].answer4)
+    //     number++;
+    // }
 
     function correct() {
         $(".title").text("Correct!");
         $("#what-question").text("Ha ha ha. Good Thinking");
         $("#response-box").html('<img class="rounded img-fluid" src=' + '"' + correctImg + '"' + '>');
         correctLog++;
+        // setTimeout(newQuestion, 5000);
     };
 
     function wrong() {
@@ -160,25 +173,24 @@ window.onload = function () {
         $("#what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
         $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
         incorrectLog++;
+        // setTimeout(newQuestion, 5000);
     };
 
     function outtaTime() {
         $(".title").text("Out of Time!");
         $("#what-question").text("The answer is " + rightChoice)
         $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
+        // setTimeout(newQuestion, 5000);
     };
 
     function shuffle(questions) {
         var gameFlow = questions.length, tempVal, shuffleVal;
 
-        // While there remain elements to shuffle...
         while (0 !== gameFlow) {
 
-            // Pick a remaining element...
             shuffleVal = Math.floor(Math.random() * gameFlow);
             gameFlow -= 1;
 
-            // And swap it with the current element.
             tempVal = questions[gameFlow];
             questions[gameFlow] = questions[shuffleVal];
             questions[shuffleVal] = tempVal;
@@ -186,20 +198,6 @@ window.onload = function () {
 
         return questions;
     }
-
-    // gameFlow = questions[Math.floor(Math.random() * questions.length)];
-    // console.log(gameFlow);  
-
-    // function shuffle(questions) {
-    //     var gameFlow, gameShuffle, i;
-    //     for (i = questions.length - 1; i > 0; i--) {
-    //         gameFlow = Math.floor(Math.random() * (i + 1));
-    //         gameShuffle = questions[i];
-    //         a[i] = a[j];
-    //         a[j] = x;
-    //     }
-    //     return a;
-    // }
 
     // INITIALIZATION
     $("#main-content").hide();
@@ -218,7 +216,7 @@ window.onload = function () {
 
         for (i = 0; i < questions.length; i++) {
 
-            if (!startGame) {
+            // if (!startGame) {
                 newQuestion();
                 rightChoice = (questions[i].correctAnswer);
                 var correctImg = (questions[i].imageUrl);
@@ -238,14 +236,13 @@ window.onload = function () {
 
                 })
 
-                startGame = true;
+            //     startGame = true;
 
-            }
+            // }
 
-            else {
-                // setnextQuestion();
-                startGame = false;
-            }
+            // else {
+            //     startGame = false;
+            // }
         }
 
     })
