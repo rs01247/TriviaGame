@@ -1,8 +1,9 @@
-window.onload = function () {
+$(document).ready(function(){
 
     // DECLARING VARIABLES
     var tommyLaugh = new Audio("./assets/audio/tommy-laugh.mp3");
     var startGame = false;
+    var yesImg;
     var userChoice;
     var rightChoice;
     var correctLog = 0;
@@ -10,6 +11,9 @@ window.onload = function () {
     var gameTimer = 10;
     var timeout;
     var number = 1;
+    var i = 0;
+    var titleClone = $(".title").clone();
+    var responseClone = $("#response-box").clone();
 
     var questions = [
 
@@ -131,39 +135,53 @@ window.onload = function () {
         $("#number").text(number);
     }
 
+    function nextArray() {
+        i = i + 1;
+        i = i % questions.length;
+        return questions[i];
+    }
+
     function newQuestion() {
-        $("#what-question").text(questions[i].ask)
-        $("#answer-1").text(questions[i].answer1)
-        $("#answer-2").text(questions[i].answer2)
-        $("#answer-3").text(questions[i].answer3)
-        $("#answer-4").text(questions[i].answer4)
-        number++;
+        $("#what-question").html(questions[i].ask);
+        $("#answer-1").html(questions[i].answer1);
+        $("#answer-2").html(questions[i].answer2);
+        $("#answer-3").html(questions[i].answer3);
+        $("#answer-4").html(questions[i].answer4);
+        $("#timer").html("Time Remaining: 10");
         timeout = setInterval(countdown, 1000);
+        number++;
     };
 
     function countdown() {
-
         gameTimer--;
         $("#timer").text("Time Remaining: " + gameTimer);
         if (gameTimer === 0) {
             outtaTime();
         }
-        
-    }  
+
+    }
+
+    function stopTimer() {
+        clearInterval(timeout);
+    }
 
     // function nextQuestion() {
-    //     $("#what-question").text(questions[i+1].ask)
-    //     $("#answer-1").text(questions[i+1].answer1)
-    //     $("#answer-2").text(questions[i+1].answer2)
-    //     $("#answer-3").text(questions[i+1].answer3)
-    //     $("#answer-4").text(questions[i+1].answer4)
+    //     $(".title").replaceWith(titleClone.clone());
+    //     $("#response-box").replaceWith(responseClone.clone());
+    //     $("#answer-1").html(questions[i].answer1);
+    //     $("#answer-2").html(questions[i].answer2);
+    //     $("#answer-3").html(questions[i].answer3);
+    //     $("#answer-4").html(questions[i].answer4);
+    //     $("#timer").html("Time Remaining: 10");
+    //     timeout = setInterval(countdown, 1000);
     //     number++;
     // }
 
     function correct() {
         $(".title").text("Correct!");
         $("#what-question").text("Ha ha ha. Good Thinking");
-        $("#response-box").html('<img class="rounded img-fluid" src=' + '"' + correctImg + '"' + '>');
+        $("#response-box").html('<img class="rounded img-fluid" src=' + '"' + yesImg + '"' + '>');
+        $("#timer").detach();
         correctLog++;
         // setTimeout(newQuestion, 5000);
     };
@@ -172,6 +190,7 @@ window.onload = function () {
         $(".title").text("Incorrect!");
         $("#what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
         $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
+        $("#timer").detach();
         incorrectLog++;
         // setTimeout(newQuestion, 5000);
     };
@@ -180,6 +199,7 @@ window.onload = function () {
         $(".title").text("Out of Time!");
         $("#what-question").text("The answer is " + rightChoice)
         $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
+        $("#timer").detach();
         // setTimeout(newQuestion, 5000);
     };
 
@@ -208,47 +228,57 @@ window.onload = function () {
         init();
         shuffle(questions);
         console.log(questions);
+        console.log(i);
 
         /* 
         INCREMENT TO NEXT ARRAY AFTER QUESTION FINISHES
         SET INTERVAL
         */
 
-        for (i = 0; i < questions.length; i++) {
+        // for (i = 0; i < questions.length; i++) {
+        // console.log(i);
 
-            // if (!startGame) {
-                newQuestion();
-                rightChoice = (questions[i].correctAnswer);
-                var correctImg = (questions[i].imageUrl);
+        // if (!startGame) {
 
-                $(".your-choices").on("click", function () {
-                    userChoice = $(this).text();
-                    console.log(rightChoice);
-                    console.log(userChoice);
+        newQuestion();
 
-                    if (userChoice == rightChoice) {
-                        correct();
-                        console.log(correctImg);
-                    }
-                    else {
-                        wrong();
-                    }
+        rightChoice = (questions[i].correctAnswer);
+        yesImg = (questions[i].imageUrl);
 
-                })
+        $(".your-choices").on("click", function () {
+            userChoice = $(this).text();
+            console.log(userChoice);
+            console.log(rightChoice);
 
-            //     startGame = true;
+            if (userChoice == rightChoice) {
+                correct();
+                // console.log(correctLog);
+            }
+            else {
+                wrong();
+                // console.log(incorrectLog);
+            }
 
-            // }
+            // TIMER STOP
+            stopTimer()
+            console.log(gameTimer);
+        })
 
-            // else {
-            //     startGame = false;
-            // }
-        }
+        nextArray();
+
+        console.log(i);
+        // startGame = true;
+
+        // }
+
+        // else {
+        //     startGame = false;
+        // }
+        // }
 
     })
 
-}
-
+});
     // var mySound = soundManager.createSound({
     //     url: '/path/to/an.mp3'
     //   });
