@@ -30,7 +30,7 @@ section {
     height: 55%;
 }
 
-#main-content {
+#main-content, #correct-answer, #wrong-answer, #outta-time, #game-over {
     background-color: #b6c5c8;
     opacity: 90%;
     height: auto;

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     // DECLARING VARIABLES
     var tommyLaugh = new Audio("./assets/audio/tommy-laugh.mp3");
@@ -12,8 +12,8 @@ $(document).ready(function(){
     var timeout;
     var number = 1;
     var i = 0;
-    var titleClone = $(".title").clone();
-    var responseClone = $("#response-box").clone();
+    // var titleClone = $(".title").clone();
+    // var responseClone = $(".response-box").clone();
 
     var questions = [
 
@@ -129,10 +129,12 @@ $(document).ready(function(){
     ];
 
     function init() {
-        tommyLaugh.play();
-        $("#start-button").hide();
-        $("#main-content").show();
-        $("#number").text(number);
+        correctLog = 0;
+        incorrectLog = 0;
+        gameTimer = 10;
+        number = 1;
+        shuffle(questions);
+        newQuestion();
     }
 
     function nextArray() {
@@ -142,12 +144,17 @@ $(document).ready(function(){
     }
 
     function newQuestion() {
-        $("#what-question").html(questions[i].ask);
+        hideAll()
+        $("#main-content").show();
+        $(".title").text(`Question ${number}`);
+        // $(".response-box").html(responseClone);
+        $(".what-question").html(questions[i].ask);
         $("#answer-1").html(questions[i].answer1);
         $("#answer-2").html(questions[i].answer2);
         $("#answer-3").html(questions[i].answer3);
         $("#answer-4").html(questions[i].answer4);
         $("#timer").html("Time Remaining: 10");
+        gameTimer = 10
         timeout = setInterval(countdown, 1000);
         number++;
     };
@@ -158,7 +165,6 @@ $(document).ready(function(){
         if (gameTimer === 0) {
             outtaTime();
         }
-
     }
 
     function stopTimer() {
@@ -167,7 +173,7 @@ $(document).ready(function(){
 
     // function nextQuestion() {
     //     $(".title").replaceWith(titleClone.clone());
-    //     $("#response-box").replaceWith(responseClone.clone());
+    //     $(".response-box").replaceWith(responseClone.clone());
     //     $("#answer-1").html(questions[i].answer1);
     //     $("#answer-2").html(questions[i].answer2);
     //     $("#answer-3").html(questions[i].answer3);
@@ -178,31 +184,58 @@ $(document).ready(function(){
     // }
 
     function correct() {
+        stopTimer()
+        $("#main-content").hide();
+        $("#correct-answer").show();
         $(".title").text("Correct!");
-        $("#what-question").text("Ha ha ha. Good Thinking");
-        $("#response-box").html('<img class="rounded img-fluid" src=' + '"' + yesImg + '"' + '>');
-        $("#timer").detach();
+        $(".what-question").text("Ha ha ha. Good Thinking");
+        $(".response-box").html(`<img class="rounded img-fluid" src="${yesImg}">`);
+        // $("#timer").detach();
         correctLog++;
-        // setTimeout(newQuestion, 5000);
+        setTimeout(newQuestion, 5000);
     };
 
     function wrong() {
+        stopTimer()
+        $("#main-content").hide();
+        $("#wrong-answer").show();
         $(".title").text("Incorrect!");
-        $("#what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
-        $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
-        $("#timer").detach();
+        $(".what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
+        $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
+        // $("#timer").detach();
         incorrectLog++;
-        // setTimeout(newQuestion, 5000);
+        setTimeout(newQuestion, 5000);
     };
 
     function outtaTime() {
+        stopTimer()
+        $("#main-content").hide();
+        $("#outta-time").show();
         $(".title").text("Out of Time!");
-        $("#what-question").text("The answer is " + rightChoice)
-        $("#response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
-        $("#timer").detach();
-        // setTimeout(newQuestion, 5000);
+        $(".what-question").text("The answer is " + rightChoice)
+        $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
+        // $("#timer").detach();
+        incorrectLog++;
+        setTimeout(newQuestion, 5000);
     };
 
+    function gameOver() {
+        $("#game-over").show()
+        $("#success").text(correctLog);
+        $("#failure").text(incorrectLog);
+        setTimeout(init, 10000);
+
+    };
+
+    function hideAll() {
+        $("#correct-answer").hide();
+        $("#wrong-answer").hide();
+        $("#outta-time").hide();
+        $("#game-over").hide();
+    
+    };
+
+    // SHUFFLE THE ORDER OF QUESTIONS GIVEN PER ROUND
     function shuffle(questions) {
         var gameFlow = questions.length, tempVal, shuffleVal;
 
@@ -217,68 +250,81 @@ $(document).ready(function(){
         }
 
         return questions;
+        console.log(questions);
     }
 
     // INITIALIZATION
     $("#main-content").hide();
+    hideAll();
+
+    // while (i < questions.length) {
+
+    if (i === questions.length) {
+
+        gameOver();
+        console.log(correctLog);
+        console.log(incorrectLog)
+    }
+
+    else {
+
+        // START GAME
+        $("#start-button").on("click", function () {
+
+            tommyLaugh.play();
+            $("#start-button").hide();
+
+            init();
+            console.log(questions);
+
+            rightChoice = (questions[i].correctAnswer);
+            yesImg = (questions[i].imageUrl);
+
+            // if (gameTimer > 0) {
+
+            $(".your-choices").on("click", function () {
+                userChoice = $(this).text();
+                console.log(userChoice);
+                console.log(rightChoice);
+
+                if (userChoice == rightChoice) {
+                    correct();
+                }
+
+                else {
+                    wrong();
+                }
+
+                // if (gameTimer === 0) {
+                    console.log(gameTimer);
+                    // $("#main-content").hide();
+                    // stopTimer()
+                    // outtaTime();
+                // }
+    
+                nextArray();
+                console.log(i);
+            })
+
+            // }
 
 
-    // START GAME
-    $("#start-button").on("click", function () {
-        init();
-        shuffle(questions);
-        console.log(questions);
-        console.log(i);
 
-        /* 
-        INCREMENT TO NEXT ARRAY AFTER QUESTION FINISHES
-        SET INTERVAL
-        */
-
-        // for (i = 0; i < questions.length; i++) {
-        // console.log(i);
-
-        // if (!startGame) {
-
-        newQuestion();
-
-        rightChoice = (questions[i].correctAnswer);
-        yesImg = (questions[i].imageUrl);
-
-        $(".your-choices").on("click", function () {
-            userChoice = $(this).text();
-            console.log(userChoice);
-            console.log(rightChoice);
-
-            if (userChoice == rightChoice) {
-                correct();
-                // console.log(correctLog);
-            }
-            else {
-                wrong();
-                // console.log(incorrectLog);
-            }
-
-            // TIMER STOP
-            stopTimer()
-            console.log(gameTimer);
         })
 
-        nextArray();
 
-        console.log(i);
-        // startGame = true;
 
-        // }
-
-        // else {
-        //     startGame = false;
-        // }
-        // }
-
-    })
+    }
 
 });
+
+// while (i < questions.length) {
+//     Run function
+// }
+
+// display gameover screen
+// setTimeout (init(), 10000);
+
     // var mySound = soundManager.createSound({
     //     url: '/path/to/an.mp3'
     //   });

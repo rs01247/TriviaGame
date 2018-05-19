@@ -50,28 +50,76 @@
 
                     <!-- QUESTION BOX HIDDEN AT START OF GAME, BUTTON CLICK DISPLAYS THIS CONTENT -->
                     <div class="jumbotron text-center p-2" id="main-content">
-                        <h3 class="title">Question <span id="number"></span></h3>
-                        <p class="lead" id="what-question">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-                        <div class="container mt-2" id="response-box">
+                        <h3 class="title">
+                            <span id="number"></span>
+                        </h3>
+                        <p class="what-question lead"> </p>
+                        <div class="container mt-2 text-center">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <li class="your-choices list-group-item shadow" id="answer-1">Cras justo odio</li>
+                                    <li class="your-choices list-group-item shadow" id="answer-1"> </li>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <li class="your-choices list-group-item shadow" id="answer-2">Cras justo odio</li>
+                                    <li class="your-choices list-group-item shadow" id="answer-2"> </li>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <li class="your-choices list-group-item shadow" id="answer-3">Cras justo odio</li>
+                                    <li class="your-choices list-group-item shadow" id="answer-3"> </li>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <li class="your-choices list-group-item shadow" id="answer-4">Cras justo odio</li>
+                                    <li class="your-choices list-group-item shadow" id="answer-4"> </li>
                                 </div>
                             </div>
                         </div>
                         <h2 class="display-5 mt-2" id="timer"></h2>
                     </div>
+
+                    <!-- CORRECT ANSWER DIV -->
+                    <div class="jumbotron text-center p-2" id="correct-answer">
+                        <h3 class="title"></h3>
+                        <p class="what-question lead"></p>
+                        <div class="response-box container mt-2 text-center">
+                            <div class="row">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WRONG ANSWER DIV -->
+                    <div class="jumbotron text-center p-2" id="wrong-answer">
+                        <h3 class="title"></h3>
+                        <p class="what-question lead"></p>
+                        <div class="response-box container mt-2 text-center">
+                            <div class="row">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OUT OF TIME DIV -->
+                    <div class="jumbotron text-center p-2" id="outta-time">
+                        <h3 class="title"></h3>
+                        <p class="what-question lead"></p>
+                        <div class="response-box container mt-2 text-center">
+                            <div class="row">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GAME OVER DIV -->
+                    <div class="jumbotron text-center p-2" id="game-over">
+                            <h3 class="title">Game Over!</h3>
+                            <p class="what-question lead">Don't Ever Leave me Baby...</p>
+                            <div class="response-box container mt-2 text-center">
+                                <div class="row">
+                                    <h4>Correct: <span id="success"></span></h4>
+                                    <h4>Incorrect: <span id="failure"></span></h4>
+                                </div>
+                            </div>
+                        </div>
+
 
                 </div>
             </div>
