@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     // DECLARING VARIABLES
     var tommyLaugh = new Audio("./assets/audio/tommy-laugh.mp3");
+    var forgiveMe = new Audio("./assets/audio/godforgiveme.mp3");
     var startGame = false;
     var yesImg;
     var userChoice;
@@ -13,6 +14,7 @@ $(document).ready(function () {
     var number = 1;
     var i = 0;
 
+    // ARRAY OF QUESTIONS THAT WILL POPULATE THE MAIN CONTENT DIV
     var questions = [
 
         q1 = {
@@ -132,12 +134,15 @@ $(document).ready(function () {
         gameTimer = 10;
         number = 1;
         shuffle(questions);
+        rightChoice = (questions[i].correctAnswer);
+        yesImg = (questions[i].imageUrl)
         newQuestion();
     }
 
     function nextItem() {
         i = i + 1;
-        // i = i % questions.length;
+        rightChoice = (questions[i].correctAnswer);
+        yesImg = (questions[i].imageUrl);
         return questions[i];
     }
 
@@ -202,11 +207,11 @@ $(document).ready(function () {
     };
 
     function gameOver() {
+        forgiveMe.play();
         $("#game-over").show()
         $("#success").text(correctLog);
         $("#failure").text(incorrectLog);
         setTimeout(init, 10000);
-
     };
 
     function hideAll() {
@@ -214,7 +219,7 @@ $(document).ready(function () {
         $("#wrong-answer").hide();
         $("#outta-time").hide();
         $("#game-over").hide();
-    
+
     };
 
     // SHUFFLE THE ORDER OF QUESTIONS GIVEN PER ROUND
@@ -239,31 +244,26 @@ $(document).ready(function () {
     $("#main-content").hide();
     hideAll();
 
-    if (i === questions.length) {
+    // START GAME
+    $("#start-button").on("click", function () {
 
-        gameOver();
-        console.log(correctLog);
-        console.log(incorrectLog)
-    }
+        if (i === 9) {
 
-    else {
+            $("#main-content").hide();
+            gameOver();
+            console.log(correctLog);
+            console.log(incorrectLog)
+        }
 
-        // START GAME
-        $("#start-button").on("click", function () {
-
+        else {
             tommyLaugh.play();
             $("#start-button").hide();
 
             init();
             console.log(questions);
 
-            // THIS RIGHTCHOICE IS BEING DEFINED ONLY AFTER THE START BUTTON CLICK
-            rightChoice = (questions[i].correctAnswer);
-            yesImg = (questions[i].imageUrl);
-
-            // if (gameTimer > 0) {
-
             $(".your-choices").on("click", function () {
+
                 userChoice = $(this).text();
                 console.log('Click User choice', userChoice);
                 console.log('Click Right choice', rightChoice);
@@ -276,29 +276,13 @@ $(document).ready(function () {
                     wrong();
                 }
 
-                // if (gameTimer === 0) {
-                    console.log(gameTimer);
-                    // $("#main-content").hide();
-                    // stopTimer()
-                    // outtaTime();
-                // }
-    
                 nextItem();
-                // NEED TO ITERATE (i+1) FOR rightChoice AND yesImg RIGHT HERE
-                    // questions[i+1].correctAnswer
-                    // questions[i+1].imageUrl
                 console.log(i);
             })
-
-            // }
-
-
-
-        })
-
-
-
-    }
+        }
+        // FIND AWAY TO LOG OUT OF TIME INTO I++
+        // NEWQUESTION HAS THE TIME OUT FUNCTION SO MIGHT HAVE TO PULL TIMEOUT INTO A GLOBAL  
+    })
 
 });
 
