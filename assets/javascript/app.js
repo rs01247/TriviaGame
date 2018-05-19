@@ -12,8 +12,6 @@ $(document).ready(function () {
     var timeout;
     var number = 1;
     var i = 0;
-    // var titleClone = $(".title").clone();
-    // var responseClone = $(".response-box").clone();
 
     var questions = [
 
@@ -137,9 +135,9 @@ $(document).ready(function () {
         newQuestion();
     }
 
-    function nextArray() {
+    function nextItem() {
         i = i + 1;
-        i = i % questions.length;
+        // i = i % questions.length;
         return questions[i];
     }
 
@@ -147,7 +145,6 @@ $(document).ready(function () {
         hideAll()
         $("#main-content").show();
         $(".title").text(`Question ${number}`);
-        // $(".response-box").html(responseClone);
         $(".what-question").html(questions[i].ask);
         $("#answer-1").html(questions[i].answer1);
         $("#answer-2").html(questions[i].answer2);
@@ -171,18 +168,6 @@ $(document).ready(function () {
         clearInterval(timeout);
     }
 
-    // function nextQuestion() {
-    //     $(".title").replaceWith(titleClone.clone());
-    //     $(".response-box").replaceWith(responseClone.clone());
-    //     $("#answer-1").html(questions[i].answer1);
-    //     $("#answer-2").html(questions[i].answer2);
-    //     $("#answer-3").html(questions[i].answer3);
-    //     $("#answer-4").html(questions[i].answer4);
-    //     $("#timer").html("Time Remaining: 10");
-    //     timeout = setInterval(countdown, 1000);
-    //     number++;
-    // }
-
     function correct() {
         stopTimer()
         $("#main-content").hide();
@@ -190,7 +175,6 @@ $(document).ready(function () {
         $(".title").text("Correct!");
         $(".what-question").text("Ha ha ha. Good Thinking");
         $(".response-box").html(`<img class="rounded img-fluid" src="${yesImg}">`);
-        // $("#timer").detach();
         correctLog++;
         setTimeout(newQuestion, 5000);
     };
@@ -202,7 +186,6 @@ $(document).ready(function () {
         $(".title").text("Incorrect!");
         $(".what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
         $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
-        // $("#timer").detach();
         incorrectLog++;
         setTimeout(newQuestion, 5000);
     };
@@ -214,7 +197,6 @@ $(document).ready(function () {
         $(".title").text("Out of Time!");
         $(".what-question").text("The answer is " + rightChoice)
         $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
-        // $("#timer").detach();
         incorrectLog++;
         setTimeout(newQuestion, 5000);
     };
@@ -257,8 +239,6 @@ $(document).ready(function () {
     $("#main-content").hide();
     hideAll();
 
-    // while (i < questions.length) {
-
     if (i === questions.length) {
 
         gameOver();
@@ -277,6 +257,7 @@ $(document).ready(function () {
             init();
             console.log(questions);
 
+            // THIS RIGHTCHOICE IS BEING DEFINED ONLY AFTER THE START BUTTON CLICK
             rightChoice = (questions[i].correctAnswer);
             yesImg = (questions[i].imageUrl);
 
@@ -284,8 +265,8 @@ $(document).ready(function () {
 
             $(".your-choices").on("click", function () {
                 userChoice = $(this).text();
-                console.log(userChoice);
-                console.log(rightChoice);
+                console.log('Click User choice', userChoice);
+                console.log('Click Right choice', rightChoice);
 
                 if (userChoice == rightChoice) {
                     correct();
@@ -302,7 +283,10 @@ $(document).ready(function () {
                     // outtaTime();
                 // }
     
-                nextArray();
+                nextItem();
+                // NEED TO ITERATE (i+1) FOR rightChoice AND yesImg RIGHT HERE
+                    // questions[i+1].correctAnswer
+                    // questions[i+1].imageUrl
                 console.log(i);
             })
 
