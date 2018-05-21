@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     // DECLARING VARIABLES
+    var princess = new Audio("./assets/audio/princess.mp3");
     var tommyLaugh = new Audio("./assets/audio/tommy-laugh.mp3");
     var forgiveMe = new Audio("./assets/audio/godforgiveme.mp3");
     var startGame = false;
@@ -181,7 +182,6 @@ $(document).ready(function () {
         $(".what-question").text("Ha ha ha. Good Thinking");
         $(".response-box").html(`<img class="rounded img-fluid" src="${yesImg}">`);
         correctLog++;
-        setTimeout(newQuestion, 5000);
     };
 
     function wrong() {
@@ -192,7 +192,6 @@ $(document).ready(function () {
         $(".what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
         $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
         incorrectLog++;
-        setTimeout(newQuestion, 5000);
     };
 
     function outtaTime() {
@@ -203,11 +202,13 @@ $(document).ready(function () {
         $(".what-question").text("The answer is " + rightChoice)
         $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
         incorrectLog++;
+        nextItem();
         setTimeout(newQuestion, 5000);
     };
 
     function gameOver() {
         forgiveMe.play();
+        stopTimer();
         $("#game-over").show()
         $("#success").text(correctLog);
         $("#failure").text(incorrectLog);
@@ -215,12 +216,22 @@ $(document).ready(function () {
     };
 
     function hideAll() {
+        $("#main-content").hide();
         $("#correct-answer").hide();
         $("#wrong-answer").hide();
         $("#outta-time").hide();
         $("#game-over").hide();
-
     };
+
+    // function isFinished() {
+    //     if (i > questions.length) {
+
+    //         $("#main-content").hide();
+    //         gameOver();
+    //         console.log(correctLog);
+    //         console.log(incorrectLog)
+    //     }
+    // }
 
     // SHUFFLE THE ORDER OF QUESTIONS GIVEN PER ROUND
     function shuffle(questions) {
@@ -241,22 +252,14 @@ $(document).ready(function () {
     }
 
     // INITIALIZATION
-    $("#main-content").hide();
     hideAll();
 
     // START GAME
     $("#start-button").on("click", function () {
 
-        if (i === 9) {
+        if (i < questions.length) {
 
-            $("#main-content").hide();
-            gameOver();
-            console.log(correctLog);
-            console.log(incorrectLog)
-        }
-
-        else {
-            tommyLaugh.play();
+            princess.play();
             $("#start-button").hide();
 
             init();
@@ -265,33 +268,38 @@ $(document).ready(function () {
             $(".your-choices").on("click", function () {
 
                 userChoice = $(this).text();
-                console.log('Click User choice', userChoice);
-                console.log('Click Right choice', rightChoice);
+                console.log('User:', userChoice);
+                console.log('Correct:', rightChoice);
 
                 if (userChoice == rightChoice) {
                     correct();
+                    setTimeout(newQuestion, 5000);
                 }
 
                 else {
                     wrong();
+                    setTimeout(newQuestion, 5000);
                 }
 
                 nextItem();
                 console.log(i);
             })
+
         }
-        // FIND AWAY TO LOG OUT OF TIME INTO I++
-        // NEWQUESTION HAS THE TIME OUT FUNCTION SO MIGHT HAVE TO PULL TIMEOUT INTO A GLOBAL  
+
+        else {
+            $("#correct-answer").hide();
+            $("#wrong-answer").hide();
+            $("#outta-time").hide();
+            gameOver();
+            console.log(correctLog);
+            console.log(incorrectLog)
+            
+        }
+
     })
 
 });
-
-// while (i < questions.length) {
-//     Run function
-// }
-
-// display gameover screen
-// setTimeout (init(), 10000);
 
     // var mySound = soundManager.createSound({
     //     url: '/path/to/an.mp3'
