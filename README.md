@@ -1,6 +1,4 @@
-# TriviaGame
-
-## Oh hi Mark
+# Oh hi Mark
 
 ### Welcome to The Room Trivia Game!
 
