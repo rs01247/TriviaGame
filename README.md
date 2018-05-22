@@ -1,8 +1,8 @@
 # TriviaGame
 
-##Oh hi Mark
+## Oh hi Mark
 
-###Welcome to The Room Trivia Game!
+### Welcome to The Room Trivia Game!
 
 This game is based on the world's greatest movie, The Room. 
 
