@@ -190,7 +190,7 @@ $(document).ready(function () {
         $("#wrong-answer").show();
         $(".title").text("Incorrect!");
         $(".what-question").text("Why Lisa why? The answer was " + '"' + rightChoice + '"');
-        $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/tearingme.gif">')
+        $(".response-box").html(`<img class="rounded img-fluid" src="${yesImg}">`)
         incorrectLog++;
     };
 
@@ -203,7 +203,7 @@ $(document).ready(function () {
         $(".response-box").html('<img class="rounded img-fluid" src="./assets/images/betray.gif">')
         incorrectLog++;
         nextItem();
-        setTimeout(newQuestion, 5000);
+        isFinished()
     };
 
     function gameOver() {
@@ -223,15 +223,20 @@ $(document).ready(function () {
         $("#game-over").hide();
     };
 
-    // function isFinished() {
-    //     if (i > questions.length) {
+    function isFinished() {
+        if (i < questions.length) {
+            setTimeout(newQuestion, 5000);
+            console.log(i);
+        }
 
-    //         $("#main-content").hide();
-    //         gameOver();
-    //         console.log(correctLog);
-    //         console.log(incorrectLog)
-    //     }
-    // }
+        else {
+            $("#main-content").hide();
+            $("#correct-answer").hide();
+            $("#wrong-answer").hide();
+            $("#outta-time").hide();
+            gameOver();
+        }
+    }
 
     // SHUFFLE THE ORDER OF QUESTIONS GIVEN PER ROUND
     function shuffle(questions) {
@@ -257,8 +262,6 @@ $(document).ready(function () {
     // START GAME
     $("#start-button").on("click", function () {
 
-        if (i < questions.length) {
-
             princess.play();
             $("#start-button").hide();
 
@@ -273,45 +276,17 @@ $(document).ready(function () {
 
                 if (userChoice == rightChoice) {
                     correct();
-                    setTimeout(newQuestion, 5000);
+                    isFinished();
                 }
 
                 else {
                     wrong();
-                    setTimeout(newQuestion, 5000);
+                    isFinished();
                 }
 
                 nextItem();
-                console.log(i);
             })
-
-        }
-
-        else {
-            $("#correct-answer").hide();
-            $("#wrong-answer").hide();
-            $("#outta-time").hide();
-            gameOver();
-            console.log(correctLog);
-            console.log(incorrectLog)
-            
-        }
 
     })
 
 });
-
-    // var mySound = soundManager.createSound({
-    //     url: '/path/to/an.mp3'
-    //   });
-
-    //   // ...and play it
-    //   mySound.play();
-
-    // soundManager.setup({
-    //     // where to find flash audio SWFs, as needed
-    //     url: '/path/to/swf-files/',
-    //     onready: function () {
-    //         // SM2 is ready to play audio!
-    //     }
-    // });
