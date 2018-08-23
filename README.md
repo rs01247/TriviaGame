@@ -9,3 +9,5 @@ There are 10 questions and you will get 10 seconds per question to answer.
 Use your best knowledge of what I know is your favorite movie and we'll be in for a good time.
 
 Correct and Incorrect answers will be tallied at the end, Good Luck!
+
+Deployed version of this application can be found [here](https://rs01247.github.io/TriviaGame/)
